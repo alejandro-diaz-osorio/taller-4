@@ -17,18 +17,20 @@ class SiteController {
         // Procesar formulario si es la sección contacto y viene por POST
         if ($url === 'contacto' && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre'])) {
             $nombre_contacto = trim($_POST['nombre']);
+            $correo_contacto = trim($_POST['correo'] ?? '');
+            $comentario_contacto = trim($_POST['comentario'] ?? '');
 
-            if (!empty($nombre_contacto)) {
+            if ($nombre_contacto !== '' && filter_var($correo_contacto, FILTER_VALIDATE_EMAIL) && $comentario_contacto !== '') {
                 $modelo = new ContactoModel($this->conexion);
-                $exito = $modelo->guardarContacto($nombre_contacto);
+                $exito = $modelo->guardarContacto($nombre_contacto, $correo_contacto, $comentario_contacto);
 
                 if ($exito) {
-                    $mensaje_db = "<p style='color: green; font-weight: bold;'>¡Mensaje guardado con éxito en la Base de Datos!</p>";
+                    $mensaje_db = "<p class='alerta ok'>¡Mensaje guardado con éxito en la Base de Datos!</p>";
                 } else {
-                    $mensaje_db = "<p style='color: red;'>Error al guardar en la base de datos.</p>";
+                    $mensaje_db = "<p class='alerta error'>Error al guardar en la base de datos.</p>";
                 }
             } else {
-                $mensaje_db = "<p style='color: red;'>Por favor, escribe un nombre válido.</p>";
+                $mensaje_db = "<p class='alerta error'>Completa nombre, un correo válido y el comentario.</p>";
             }
         }
 
@@ -38,6 +40,9 @@ class SiteController {
         switch ($url) {
             case 'inicio':
                 require_once 'views/inicio.php';
+                break;
+            case 'mis-gustos':
+                require_once 'views/mis-gustos.php';
                 break;
             case 'servicios':
                 require_once 'views/servicios.php';

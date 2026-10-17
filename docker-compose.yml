@@ -19,6 +19,7 @@ services:
       - "3306:3306"
     volumes:
       - datos-persistentes:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-contactos.sql:ro
 
   # Servicio 3: Administrador gráfico para crear las tablas fácilmente
   phpmyadmin:

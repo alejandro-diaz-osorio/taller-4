@@ -11,11 +11,12 @@
 </head>
 <body>
     <header>
-        <h1>Mi Primer Sitio Web</h1>
+        <h1>Mi Sitio Web en la Nube</h1>
         <nav>
             <ul>
                 <li><a href="inicio">Inicio</a></li>
                 <li><a href="servicios">Servicios</a></li>
+                <li><a href="mis-gustos">Mis gustos</a></li>
                 <li><a href="contacto">Contacto</a></li>
             </ul>
         </nav>
